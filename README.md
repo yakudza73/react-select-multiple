@@ -1,3 +1,3 @@
 # react-select-multiple
-`npm i` - установить зависимости
-`npm run start` запустить dev 
+`yarn install` - установить зависимости
+`yarn start` запустить dev 

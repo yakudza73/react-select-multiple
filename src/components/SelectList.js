@@ -9,7 +9,8 @@ export class SelectList extends React.Component {
         this.state = {
           selectData: [],
           selectStatus: false,
-          search:""
+          search:"",
+          isClearInput: false
         };
     }
 
@@ -38,7 +39,7 @@ export class SelectList extends React.Component {
             if(el.id.toString() === e.target.getAttribute('data-tag-id') ){
                 this.setState((state)=>{
                     selectData: state.selectData.splice(index, 1)
-                })
+                });
                 
             }
         })
@@ -46,44 +47,61 @@ export class SelectList extends React.Component {
 
 
     /**handle select */
-    changeHandler = () => {
+    changeHandler = (e) => {
         this.setState({selectStatus: !this.state.selectStatus});
+
+        /**
+         * клик в другом месте переключает статус
+         */
+        const select = e.target;
+        window.onclick = (e)=> {
+            if (e.target !== select) {
+                this.setState({selectStatus: !this.state.selectStatus});
+            }
+        }
     };
 
     searchHandle = (e) => {
         this.setState({search: e.target.value.toLowerCase()});
+        this.setState({isClearInput: !this.state.isClearInput});
     };
 
     /**добавление  */
     addHandler = (e) => {
 
-        if(e.keyCode == 'Enter' && e.target.value.length > 0){
+        if(e.keyCode === 'Enter' && e.target.value.length > 0){
             const option = {
                 label: e.target.value,
-                value: parseInt(+new Date()/1000),
-                id: parseInt(+new Date()/1000)
-            }
-            this.props.addingOption(option)
+                value: parseInt(+new Date()/1000, 10),
+                id: parseInt(+new Date()/1000, 10)
+            };
+            this.props.addingOption(option);
             this.clearSearch();
             e.target.value = ''
         }
     };
 
     onKeyUpBackspace = (e) => {
-        
-        if(e.keyCode === 8 || e.keyCode === 46 && this.state.selectData.length > 0 && e.target.value.length === 0){
+        if(e.target.value.length === 0) {
             this.setState({
-                selecData: this.state.selectData.pop()
-            })
+                isClearInput: !this.state.isClearInput
+            });
+
+            if (e.keyCode === 8 || e.keyCode === 46 && this.state.selectData.length > 0) {
+                if(this.state.isClearInput)
+                    this.setState({
+                        selecData: this.state.selectData.pop()
+                    })
+            }
         }
-    }
+    };
 
     /**очищает выбранные теги */
     deleteHandler = () => {
         this.setState({
             selectData: []
         })
-    }
+    };
 
     clearSearch(){
         this.setState({
@@ -93,24 +111,38 @@ export class SelectList extends React.Component {
 
     /**рендер элементов списка */
     templateItem = () => {
-        const options = this.props.data
+        const options = this.props.data;
 
         return options.map((item) => {
 
-            if(this.state.search.length > 0){
-                if( item.label.indexOf(this.state.search) !== -1 ){
+            /**
+             * проверяет наличие значения в выбранном массиве this.state.selectData
+             */
+            if(this.state.selectData.find((el)=>el.id === item.id) === undefined ) {
+
+                /**
+                 * проверка и фильтер по значению из инпута
+                 */
+                if (this.state.search.length > 0) {
+
+                    if (item.label.indexOf(this.state.search) !== -1) {
+                        return (
+                            <li className="select-list__item" data-id={item.id} key={item.id}
+                                onClick={this.checkSelect}>
+                                {item.label}
+                            </li>
+                        )
+                    }
+                } else {
+                    /**
+                     * рендер если нет значения из инпута
+                     */
                     return (
                         <li className="select-list__item" data-id={item.id} key={item.id} onClick={this.checkSelect}>
                             {item.label}
                         </li>
                     )
                 }
-            } else {
-                return (
-                    <li className="select-list__item" data-id={item.id} key={item.id} onClick={this.checkSelect}>
-                        {item.label}
-                    </li>
-                )
             }
             
         })
@@ -118,12 +150,12 @@ export class SelectList extends React.Component {
 
     /**ренедер выбранных тегов */
     templateTag = () => {
-        const tag = this.state.selectData
+        const tag = this.state.selectData;
 
         return tag.map((item) => {
             return (
                 <div className="select-list-tag" key={item.id}>
-                    {item.label} <button className="select-list-tag-close" data-tag-id={item.id} onClick={this.deleteTagHandler}>x</button>
+                    <span>{item.label}</span> <button className="select-list-tag-close" data-tag-id={item.id} onClick={this.deleteTagHandler}>x</button>
                 </div>
             )
         })
@@ -156,7 +188,7 @@ export class SelectList extends React.Component {
 
             </div>
         )
-    }
+    };
 
     render() {
         return this.template()
@@ -166,5 +198,5 @@ export class SelectList extends React.Component {
 SelectList.propTypes = {
     data: PropTypes.array.isRequired,
     addingOption: PropTypes.func.isRequired,
-}
+};
 

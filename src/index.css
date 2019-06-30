@@ -16,131 +16,151 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-  display: block;
+    display: block;
 }
+
 body {
-  line-height: 1;
-  font-family: sans-serif;
+    line-height: 1;
+    font-family: sans-serif;
 }
+
 ol, ul {
-  list-style: none;
+    list-style: none;
 }
+
 blockquote, q {
-  quotes: none;
+    quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
-  content: '';
-  content: none;
+    content: '';
+    content: none;
 }
+
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /*end reset*/
 
 
 .app {
-  margin: 50px;
-  font: 14px sans-serif;
+    margin: 50px;
+    font: 14px sans-serif;
 }
 
 
-.select-list-outer{
-  display: inline-flex;
-  border-radius:5px;
-  border:1px solid #eee;
-  padding: 10px;
-  position: relative;
-  min-width: 340px;
-  height:48px;
-  box-sizing: border-box;
+.select-list-outer {
+    display: inline-flex;
+    padding-left: 10px;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    position: relative;
+    min-width: 340px;
+    height: 48px;
+    box-sizing: border-box;
 }
-.select-list-outer:after{
-  content: "";
-  position: absolute;
-  top:18px;
-  right:10px;
-  width: 0;
-	height: 0;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 10px solid #eee;
+
+.select-list-outer:after {
+    content: "";
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #eee;
 }
-.select-list-outer.active:after{
-  content: "";
-  position: absolute;
-  top:16px;
-  right:10px;
-  width: 0;
-	height: 0;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-  border-bottom: 10px solid #eee;
-  border-top: 0;
+
+.select-list-outer.active:after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #eee;
+    border-top: 0;
 }
-.select-list-tag{
-  display: inline-block;
-  font-size: 10px;
-  border-radius:5px;
-  border:1px solid #6383a8;
-  padding: 3px;
-  color: #fff;
-  background: #6d8cb0;
-  margin-right: 5px;
+
+.select-list-tag {
+    display: inline-flex;
+    justify-content: space-between;
+    min-width: 60px;
+    font-size: 10px;
+    border-radius: 5px;
+    border: 1px solid #6383a8;
+    padding: 3px;
+    color: #fff;
+    background: #6d8cb0;
+    margin-right: 5px;
 }
-.select-list-tag-close{
-  margin-left:5px;
-  background: transparent;
-  border: 0;
-  color: inherit;
-  cursor: pointer;
-  outline: none;
+
+.select-list-tag-close {
+    margin-left: 5px;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
 }
-.select-list{
-  position: absolute;
-  top: 47px;
-  list-style: none;
-  left:0;
-  border-radius:0 0 5px 5px;
-  max-height: 200px;
-  overflow-y: scroll;
-  border:1px solid #eee;
-  width:100%;
-  box-sizing: border-box;
+
+.select-list {
+    position: absolute;
+    top: 47px;
+    list-style: none;
+    left: 0;
+    border-radius: 0 0 5px 5px;
+    max-height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #eee;
+    width: 100%;
+    box-sizing: border-box;
 }
-.select-list-input{
-  border: 0;
-  outline: none;
-  cursor: pointer;
-  min-width: 165px;
+
+.select-list-input {
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    min-width: 165px;
+    width: 100%;
+    padding: 10px;
 }
-.select-list__item{
-  padding: 5px;
-  border-top:1px solid #eee;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
+
+.select-list__item {
+    padding: 5px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
 }
-.select-list__item:hover{
-  background: #8699af;
+
+.select-list__item:hover {
+    background: #8699af;
 }
-.select-list-delete{
-  position: absolute;
-  top: 13px;
-  right: 20px;
-  border:0;
-  background:transparent;
-  outline: none;
-  cursor: pointer;
+
+.select-list-delete {
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    border: 0;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
 }
