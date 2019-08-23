@@ -13,6 +13,7 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
+  externals: ['axios'],
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
